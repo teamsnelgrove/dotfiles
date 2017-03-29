@@ -168,6 +168,26 @@ defaults write com.apple.BluetoothAudioAgent "Apple Bitpool Min (editable)" -int
 # (e.g. enable Tab in modal dialogs)
 defaults write NSGlobalDomain AppleKeyboardUIMode -int 3
 
+tell application "System Preferences"
+        activate
+        set current pane to pane "com.apple.preference.keyboard"
+end tell
+
+tell application "System Events"
+        tell application process "System Preferences"
+                get properties
+
+                click button "Modifier Keys…" of tab group 1 of window "Keyboard"
+                tell sheet 1 of window "Keyboard"
+                        click pop up button 4
+                        click menu item 2 of menu 1 of pop up button 4
+                        click button "OK"
+                end tell
+        end tell
+
+        tell application "System Preferences" to quit
+end tell
+
 # Use scroll gesture with the Ctrl (^) modifier key to zoom
 defaults write com.apple.universalaccess closeViewScrollWheelToggle -bool true
 defaults write com.apple.universalaccess HIDScrollZoomModifierMask -int 262144
@@ -346,7 +366,7 @@ defaults write com.apple.finder FXInfoPanesExpanded -dict \
 defaults write com.apple.dock mouse-over-hilite-stack -bool true
 
 # Set the icon size of Dock items to 36 pixels
-defaults write com.apple.dock tilesize -int 36
+# defaults write com.apple.dock tilesize -int 36
 
 # Change minimize/maximize window effect
 defaults write com.apple.dock mineffect -string "scale"
