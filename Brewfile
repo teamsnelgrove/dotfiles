@@ -1,74 +1,54 @@
 # Taps
-tap 'caskroom/cask'
-tap 'caskroom/fonts'
-tap 'caskroom/versions'
+tap 'homebrew/cask'
+tap 'homebrew/cask-eid'
+tap 'homebrew/cask-fonts'
+tap 'homebrew/cask-versions'
 tap 'homebrew/bundle'
-tap 'homebrew/dupes'
+tap 'd12frosted/emacs-plus'
 
 # Make sure apps get installed in system Applications dir
 cask_args appdir: '/Applications'
 
-# Install ZSH
-brew 'zsh'
-brew 'zsh-completions'
-
-# Install GNU core utilities (those that come with OS X are outdated)
-brew 'coreutils'
-
-# Install GNU `find`, `locate`, `updatedb`, and `xargs`, g-prefixed
-brew 'findutils'
-
-# Install Bash 4
-brew 'bash'
-
-# Install more recent versions of some OS X tools
-brew 'homebrew/dupes/grep'
-
-cask 'java'
-
-# Install Binaries
+# Binaries
 brew 'awscli'
-brew 'aspell'
-brew 'boot-clj'
-brew 'leiningen'
-brew 'elasticsearch'
-brew 'elixir'
-tap  'd12frosted/emacs-plus'
-brew 'emacs-plus'
-brew 'erlang'
+brew 'asdf'
+brew 'bash' # Latest Bash version
+brew 'bat' # "cat" on steroids
+brew 'coreutils'
 brew 'git'
-brew 'mysql'
+brew 'fzf'
+brew 'fd'
+brew 'mackup'
+brew 'kubectl'
+brew 'mas' # Mac App Store manager
+brew 'pkg-config' # https://github.com/driesvints/dotfiles/issues/20
+brew 'tree' # List directories in a tree structure
 brew 'openssl'
-brew 'phantomjs'
-brew 'pyenv'
-brew 'postgresql'
-brew 'the_platinum_searcher'
 brew 'the_silver_searcher'
-brew 'tree'
-brew 'redis'
-brew 'node'
-brew 'trash'
-brew 'yarn'
-brew 'wget'
+brew 'ripgrep'
+brew 'emacs-plus'
+brew 'kakoune'
 
 # Apps
-cask 'atom'
-cask 'dropbox'
+cask 'visual-studio-code'
+cask 'google-cloud-sdk'
 cask 'firefox'
+cask 'firefox-developer-edition'
 cask 'google-chrome'
-cask 'google-drive'
-cask 'gitup'
+cask 'docker'
 cask 'keybase'
 cask 'iterm2'
-cask 'postman'
 cask 'slack'
 cask 'spotify'
 cask 'keepassx'
-cask 'tunnelblick'
 cask 'transmission'
 cask 'vlc'
+cask 'omnifocus'
+cask 'the-archive-browser'
+cask 'wireshark'
+cask 'sequel-pro'
+cask 'zoomus'
 
-# eonts
+# Fonts
 cask 'font-source-code-pro'
-cask 'font-source-sans-pro'
-cask 'font-source-serif-pro'
+cask 'font-source-code-pro-for-powerline'
