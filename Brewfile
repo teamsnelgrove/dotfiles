@@ -26,6 +26,7 @@ brew 'tree' # List directories in a tree structure
 brew 'openssl'
 brew 'the_silver_searcher'
 brew 'ripgrep'
+brew 'reattach-to-user-namespace'
 brew 'emacs-plus'
 brew 'kakoune'
 
