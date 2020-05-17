@@ -10,19 +10,16 @@ tap 'd12frosted/emacs-plus'
 cask_args appdir: '/Applications'
 
 # Binaries
-brew 'awscli'
 brew 'asdf'
 brew 'bash' # Latest Bash version
 brew 'bat' # "cat" on steroids
 brew 'coreutils'
 brew 'git'
+brew 'gpg'
 brew 'fzf'
 brew 'fd'
-brew 'mackup'
-brew 'kubectl'
-brew 'mas' # Mac App Store manager
-brew 'pkg-config' # https://github.com/driesvints/dotfiles/issues/20
 brew 'tree' # List directories in a tree structure
+brew 'tmux'
 brew 'openssl'
 brew 'the_silver_searcher'
 brew 'ripgrep'
@@ -41,7 +38,6 @@ cask 'keybase'
 cask 'iterm2'
 cask 'slack'
 cask 'spotify'
-cask 'keepassx'
 cask 'transmission'
 cask 'vlc'
 cask 'omnifocus'
