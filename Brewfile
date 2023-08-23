@@ -1,51 +1,69 @@
 # Taps
-tap 'homebrew/cask'
-tap 'homebrew/cask-eid'
-tap 'homebrew/cask-fonts'
-tap 'homebrew/cask-versions'
-tap 'homebrew/bundle'
-tap 'd12frosted/emacs-plus'
+tap "1password/tap"
+tap "d12frosted/emacs-plus"
+tap "homebrew/bundle"
+tap "homebrew/cask-eid"
+tap "homebrew/cask-fonts"
+tap "homebrew/cask-versions"
+tap "homebrew/services"
+tap "koekeishiya/formulae"
+tap "oktadeveloper/tap"
+tap "warrensbox/tap"
 
-# Make sure apps get installed in system Applications dir
-cask_args appdir: '/Applications'
-
-# Binaries
-brew 'asdf'
-brew 'bash' # Latest Bash version
-brew 'bat' # "cat" on steroids
-brew 'coreutils'
-brew 'git'
-brew 'gpg'
-brew 'fzf'
-brew 'fd'
-brew 'tree' # List directories in a tree structure
-brew 'tmux'
-brew 'openssl'
-brew 'the_silver_searcher'
-brew 'ripgrep'
-brew 'reattach-to-user-namespace'
-brew 'emacs-plus'
-brew 'kakoune'
-
+# Language shims
+brew "asdf"
+# Build tooling
+brew "coreutils"
+brew "pkg-config"
+brew "cmake"
+brew "moreutils"
+# Compression
+brew "bzip2"
+brew "xz"
+# Crypto
+brew "libksba"
+brew "gnupg"
+brew "openssl"
+# Text/Image processors
+brew "harfbuzz"
+brew "librsvg"
+brew "graphviz"
+brew "gdk-pixbuf"
+# Editor
+brew "bat"
+brew "watchexec"
+brew "starship"
+brew "neovim"
+brew "direnv"
+brew "git"
+brew "git-secrets"
+# Databases
+brew "postgresql@14"
+brew "mysql@5.7", restart_service: true
+brew "redis", restart_service: true
+# Search
+brew "ripgrep"
+brew "tree"
+brew "fd"
+brew "fzf"
+# Parsers
+brew "jq"
+brew "yq"
+brew "zlib"
+brew "koekeishiya/formulae/skhd"
+brew "libxml2"
+brew "libxmlsec1"
+brew "protobuf@3"
 # Apps
-cask 'visual-studio-code'
-cask 'google-cloud-sdk'
-cask 'firefox'
-cask 'firefox-developer-edition'
-cask 'google-chrome'
-cask 'docker'
-cask 'keybase'
-cask 'iterm2'
-cask 'slack'
-cask 'spotify'
-cask 'transmission'
-cask 'vlc'
-cask 'omnifocus'
-cask 'the-archive-browser'
-cask 'wireshark'
-cask 'sequel-pro'
-cask 'zoomus'
+cask "1password-cli"
+cask "okta"
+cask "spotify", args: { appdir: "/Applications" }
+cask "wezterm"
+cask "zoom"
 
-# Fonts
-cask 'font-source-code-pro'
-cask 'font-source-code-pro-for-powerline'
+# DivvyCloud Specific
+brew "libxmlsec1"
+brew "pyenv"
+brew "pyenv-virtualenv"
+brew "warrensbox/tap/tfswitch"
+

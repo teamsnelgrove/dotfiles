@@ -1,0 +1,5 @@
+require("wanderingmists.plugins.colors")
+require("wanderingmists.plugins.lsp")
+require("wanderingmists.plugins.telescope")
+require("wanderingmists.plugins.treesitter")
+require("wanderingmists.plugins.undotree")
