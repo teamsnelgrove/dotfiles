@@ -61,9 +61,14 @@ cask "spotify", args: { appdir: "/Applications" }
 cask "wezterm"
 cask "zoom"
 
+# Window management
+brew "koekeishiya/formulae/yabai"
+brew "koekeishiya/formulae/skhd"
+
 # DivvyCloud Specific
 brew "libxmlsec1"
 brew "pyenv"
 brew "pyenv-virtualenv"
 brew "warrensbox/tap/tfswitch"
+
 

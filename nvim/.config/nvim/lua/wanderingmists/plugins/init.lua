@@ -1,5 +1,7 @@
 require("wanderingmists.plugins.colors")
+require("wanderingmists.plugins.comment")
 require("wanderingmists.plugins.lsp")
 require("wanderingmists.plugins.telescope")
+require("wanderingmists.plugins.telescope-file-browser")
 require("wanderingmists.plugins.treesitter")
 require("wanderingmists.plugins.undotree")

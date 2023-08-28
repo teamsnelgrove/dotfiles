@@ -24,6 +24,15 @@ local cmp_mappings = lsp.defaults.cmp_mappings({
 cmp_mappings['<Tab>'] = nil
 cmp_mappings['<S-Tab>'] = nil
 
+cmp.setup({
+    sources = {
+        { name = "nvim_lua" },
+        { name = "nvim_lsp" },
+        { name = 'nvim_lsp_signature_help' },
+        -- { name = "buffer",  keyword_length = 5 },
+    }
+})
+
 lsp.setup_nvim_cmp({
     mapping = cmp_mappings
 })
