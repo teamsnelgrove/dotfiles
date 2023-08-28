@@ -29,8 +29,30 @@ cmp.setup({
         { name = "nvim_lua" },
         { name = "nvim_lsp" },
         { name = 'nvim_lsp_signature_help' },
-        -- { name = "buffer",  keyword_length = 5 },
+        {
+            name = "buffer",
+            keyword_length = 5
+        },
     }
+})
+cmp.setup.cmdline('/', {
+    mapping = cmp.mapping.preset.cmdline(),
+    sources = {
+        { name = 'buffer' }
+    }
+})
+cmp.setup.cmdline(':', {
+    mapping = cmp.mapping.preset.cmdline(),
+    sources = cmp.config.sources({
+        { name = 'path' }
+    }, {
+        {
+            name = 'cmdline',
+            option = {
+                ignore_cmds = { 'Man', '!' }
+            }
+        }
+    })
 })
 
 lsp.setup_nvim_cmp({

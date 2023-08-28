@@ -49,45 +49,45 @@ config.keys = {
         action = act.CloseCurrentPane { confirm = true },
     },
     {
-        key = '%',
-        mods = 'CTRL|SHIFT|ALT',
+        key = 'i',
+        mods = 'CTRL|ALT|CMD',
         action = act.SplitHorizontal {
-            args = { 'top' },
+            domain =  'CurrentPaneDomain' ,
         },
     },
     {
-        key = '"',
-        mods = 'CTRL|SHIFT|ALT',
+        key = 'o',
+        mods = 'CTRL|ALT|CMD',
         action = act.SplitVertical { domain = 'CurrentPaneDomain' },
     },
     {
-        key = 'b',
-        mods = 'CTRL|SHIFT',
+        key = 'p',
+        mods = 'CTRL|ALT|CMD',
         action = act.RotatePanes 'CounterClockwise',
     },
     {
         key = 'n',
-        mods = 'CTRL|SHIFT',
+        mods = 'CTRL|ALT|CMD',
         action = act.RotatePanes 'Clockwise'
     },
     {
-        key = 'LeftArrow',
-        mods = 'CTRL|SHIFT',
+        key = 'h',
+        mods = 'CTRL|ALT|CMD',
         action = act.ActivatePaneDirection 'Left',
     },
     {
-        key = 'RightArrow',
-        mods = 'CTRL|SHIFT',
+        key = 'l',
+        mods = 'CTRL|ALT|CMD',
         action = act.ActivatePaneDirection 'Right',
     },
     {
-        key = 'UpArrow',
-        mods = 'CTRL|SHIFT',
+        key = 'k',
+        mods = 'CTRL|ALT|CMD',
         action = act.ActivatePaneDirection 'Up',
     },
     {
-        key = 'DownArrow',
-        mods = 'CTRL|SHIFT',
+        key = 'j',
+        mods = 'CTRL|ALT|CMD',
         action = act.ActivatePaneDirection 'Down',
     },
     -- Quickly open the wezterm config file
