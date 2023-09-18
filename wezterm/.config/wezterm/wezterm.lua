@@ -13,6 +13,7 @@ end
 
 -- This is where you actually apply your config choices
 
+-- config.window_decorations = "NONE"
 -- Tab styling
 config.use_fancy_tab_bar = false
 config.hide_tab_bar_if_only_one_tab = true
