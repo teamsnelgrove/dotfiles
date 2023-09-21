@@ -89,6 +89,17 @@ vim.diagnostic.config({
 
 local root_pattern = require('lspconfig.util').root_pattern
 
+
+require('lspconfig').lua_ls.setup {
+    settings = {
+        Lua = {
+            diagnostics = {
+                globals = { "redis", "ARGV", "KEYS" },
+            }
+        }
+    }
+}
+
 require('lspconfig').pylsp.setup {
     root_dir = root_pattern('pyproject.toml'),
     settings = {
@@ -103,10 +114,24 @@ require('lspconfig').pylsp.setup {
                 flake8 = { enabled = false },
                 pyflakes = { enabled = false },
                 mccabe = { enabled = false },
-                pyls_isort = { enabled = false },
+                isort = {
+                    enabled = true,
+                    atomic = true,
+                    combine_star = true,
+                    force_grid_wrap = 4,
+                    line_length = 120,
+                    lines_after_imports = 2,
+                    profile = "black",
+                    skip_glob = "*/libcloud/*",
+                    src_paths = "Divvy/src/python/",
+                },
+                pylsp_mypy = { enabled = true },
             }
         }
-    }
+    },
+    flags = {
+        debounce_text_changes = 200,
+    },
 }
 
 

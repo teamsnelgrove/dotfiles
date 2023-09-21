@@ -1,8 +1,11 @@
 set -e
 
 pushd "$HOME/dotfiles"
-stow nvim
-stow wezterm
-stow starship
+stow btop
 stow direnv
+stow nvim
+stow skhd
+stow starship
+stow wezterm
+stow yabai
 popd

@@ -32,3 +32,4 @@ vim.opt.updatetime = 50
 vim.opt.clipboard = 'unnamed'
 
 -- vim.opt.colorcolumn = "120"
+vim.lsp.set_log_level("debug")

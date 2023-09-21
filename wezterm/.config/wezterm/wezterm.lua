@@ -53,7 +53,7 @@ config.keys = {
         key = 'i',
         mods = 'CTRL|ALT|CMD',
         action = act.SplitHorizontal {
-            domain =  'CurrentPaneDomain' ,
+            domain = 'CurrentPaneDomain',
         },
     },
     {
@@ -90,6 +90,11 @@ config.keys = {
         key = 'j',
         mods = 'CTRL|ALT|CMD',
         action = act.ActivatePaneDirection 'Down',
+    },
+    {
+        key = 'm',
+        mods = 'CTRL|ALT|CMD',
+        action = wezterm.action.TogglePaneZoomState,
     },
     -- Quickly open the wezterm config file
     {
