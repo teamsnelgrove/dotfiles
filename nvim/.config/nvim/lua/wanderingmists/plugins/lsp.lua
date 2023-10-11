@@ -54,6 +54,13 @@ cmp.setup.cmdline(':', {
     })
 })
 
+-- If you want insert `(` after select function or method item
+local cmp_autopairs = require('nvim-autopairs.completion.cmp')
+cmp.event:on(
+    'confirm_done',
+    cmp_autopairs.on_confirm_done()
+)
+
 lsp.setup_nvim_cmp({
     mapping = cmp_mappings
 })
@@ -94,38 +101,26 @@ require('lspconfig').lua_ls.setup {
     settings = {
         Lua = {
             diagnostics = {
-                globals = { "redis", "ARGV", "KEYS" },
+                globals = { "redis", "ARGV", "KEYS", "cjson", "vim" },
             }
         }
     }
 }
 
+-- vim.list_extend(vim.lsp.override, { "pyright", "pylsp" })
 require('lspconfig').pylsp.setup {
     root_dir = root_pattern('pyproject.toml'),
     settings = {
         pylsp = {
             plugins = {
-                black = { enabled = true },
-                ruff = {
-                    enabled = true,
-                    extendSelect = { "I" },
-                },
+                black = { enabled = false },
+                ruff = { enabled = false },
                 pycodestyle = { enabled = false },
                 flake8 = { enabled = false },
                 pyflakes = { enabled = false },
                 mccabe = { enabled = false },
-                isort = {
-                    enabled = true,
-                    atomic = true,
-                    combine_star = true,
-                    force_grid_wrap = 4,
-                    line_length = 120,
-                    lines_after_imports = 2,
-                    profile = "black",
-                    skip_glob = "*/libcloud/*",
-                    src_paths = "Divvy/src/python/",
-                },
-                pylsp_mypy = { enabled = true },
+                isort = { enabled = false },
+                mypy = { enabled = false },
             }
         }
     },
@@ -134,6 +129,51 @@ require('lspconfig').pylsp.setup {
     },
 }
 
+require("lspconfig").ruff_lsp.setup({
+    -- organize imports disabled, since we are already using `isort` for that
+    -- alternative, this can be enabled to make `organize imports`
+    -- available as code action
+    settings = {
+        organizeImports = false,
+    },
+    -- disable ruff as hover provider to avoid conflicts with pyright
+    -- on_attach = function(client) client.server_capabilities.hoverProvider = false end,
+})
+
+
+local slow_format_filetypes = {}
+require("conform").setup({
+    formatters_by_ft = {
+        lua = { "stylua" },
+        -- Conform will run multiple formatters sequentially
+        python = { "isort", "black" },
+        javascript = { "prettier" },
+        typescript = { "prettier" },
+    },
+    format_on_save = function(bufnr)
+        if slow_format_filetypes[vim.bo[bufnr].filetype] then
+            return
+        end
+        local function on_format(err)
+            if err and err:match("timeout$") then
+                slow_format_filetypes[vim.bo[bufnr].filetype] = true
+            end
+        end
+
+        return { timeout_ms = 200, lsp_fallback = true }, on_format
+    end,
+
+    format_after_save = function(bufnr)
+        if not slow_format_filetypes[vim.bo[bufnr].filetype] then
+            return
+        end
+        return { lsp_fallback = true }
+    end,
+    -- Conform will notify you when a formatter errors
+    notify_on_error = true,
+})
+
+vim.keymap.set("n", "<leader>=", function() require("conform").format({ lsp_fallback = true }) end, { desc = "Format"})
 
 vim.keymap.set("n", "<leader>xx", function() require("trouble").open() end)
 vim.keymap.set("n", "<leader>xw", function() require("trouble").open("workspace_diagnostics") end)
