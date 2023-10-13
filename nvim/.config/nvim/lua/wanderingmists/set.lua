@@ -8,7 +8,6 @@ opt.relativenumber = true
 opt.cmdheight = 1 -- Height of the command bar
 
 -- Ignore compiled files
-opt.wildignore = "__pycache__"
 opt.wildignore:append { "*.o", "*~", "*.pyc", "*pycache*" }
 opt.wildignore:append { "Cargo.lock", "Cargo.Bazel.lock" }
 
