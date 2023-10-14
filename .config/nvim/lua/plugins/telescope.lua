@@ -27,6 +27,12 @@ return {
                 defaults = {
                     -- wrap_results = true,
                     file_ignore_patterns = { ".git/" },
+                    git_worktrees = {
+                        {
+                            toplevel = vim.env.HOME,
+                            gitdir = vim.env.HOME .. "/.dotfiles",
+                        }
+                    }
                 },
                 pickers = {
                     find_files = { hidden = true, },
@@ -77,6 +83,7 @@ return {
             local conf = require("telescope.config").values
             local actions = require "telescope.actions"
             local action_state = require "telescope.actions.state"
+            local previewers = require "telescope.previewers"
 
             local find_in_directory = function(opts)
                 opts = opts or {}
@@ -98,12 +105,39 @@ return {
                     end,
                 }):find()
             end
-            vim.keymap.set(
-                "n",
-                "<space>fd",
-                find_in_directory,
-                { noremap = true }
-            )
+            vim.keymap.set("n", "<leader>fd", find_in_directory, { noremap = true })
+
+            -- Dotfile based search and completion
+
+            local dotfile_files = function(opts)
+                opts = opts or {}
+                pickers.new(opts, {
+                    prompt_title = '~~ dotfiles ~~',
+                    -- Your external process here
+                    finder = finders.new_oneshot_job(
+                        { "git", "--git-dir=" .. os.getenv("HOME") .. "/.dotfiles", "ls-tree", "-r", "HEAD",
+                            "--name-only" }, opts
+                    ),
+                    previewer = previewers.vim_buffer_cat.new(opts),
+                    sorter = conf.file_sorter(opts),
+                }):find()
+            end
+            vim.keymap.set("n", "<leader>df", dotfile_files, { noremap = true })
+            -- vim.keymap.set("n", "<leader>df", function()
+            --     builtin.git_files({
+            --         cwd = os.getenv("HOME") .. "/.dotfiles",
+            --         use_git_root = false,
+            --         git_command = { "git", "--git-dir=" .. os.getenv("HOME") .. "/.dotfiles", "ls-tree", "-r", "HEAD",
+            --             "--name-only" },
+            --     })
+            -- end, { noremap = true })
+
+            vim.keymap.set("n", "<leader>sdf", function()
+                builtin.live_grep({
+                    cwd = os.getenv("HOME") .. "/.config",
+                    additional_args = { "--hidden" },
+                })
+            end, { noremap = true })
         end
     }
 }
