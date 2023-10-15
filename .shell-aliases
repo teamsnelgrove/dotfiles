@@ -1,0 +1,12 @@
+# vim: set ft=sh sw=2 et :
+
+alias dotfiles='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
+alias l='ls -alh --color=always'
+alias cat="bat --theme=ansi"
+alias ..='cd ..'
+alias ...='cd ../..'
+
+alias shrug="echo '¯\_(ツ)_/¯' | pbcopy"
+
+alias s="source ~/.zshenv && source ~/.zshrc"
+
