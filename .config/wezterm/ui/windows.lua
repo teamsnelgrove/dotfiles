@@ -7,8 +7,8 @@ function windows.apply_to_config(config)
     config.tab_bar_at_bottom = true
 
     config.window_padding = {
-        left = 10,
-        right = 10,
+        left = 0,
+        right = 0,
         top = 0,
         bottom = 0,
     }

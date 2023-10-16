@@ -27,6 +27,7 @@ brew "ripgrep"
 brew "tree"
 brew "fd"
 brew "fzf"
+brew "scc"
 # Parsers
 brew "jq"
 brew "yq"

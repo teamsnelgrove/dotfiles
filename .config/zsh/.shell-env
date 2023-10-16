@@ -8,6 +8,9 @@ else
   export EDITOR='nvim'
 fi
 
+autoload edit-command-line; zle -N edit-command-line
+bindkey -M vicmd '^e' edit-command-line
+
 # FZF configuration
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

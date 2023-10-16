@@ -51,9 +51,9 @@ function keybindings.apply_to_config(config)
         { key = "8", mods = "CMD",          action = act({ ActivateTab = 7 }) },
         { key = "9", mods = "CMD",          action = act({ ActivateTab = 8 }) },
         -- Pane splitting
-        { key = "i", mods = "CTRL|ALT|CMD", action = act({ SplitVertical = { domain = "CurrentPaneDomain" } }) },
+        { key = "o", mods = "CTRL|ALT|CMD", action = act({ SplitVertical = { domain = "CurrentPaneDomain" } }) },
         {
-            key = "o",
+            key = "i",
             mods = "CTRL|ALT|CMD",
             action = act({
                 SplitHorizontal = { domain = "CurrentPaneDomain" } })
