@@ -9,6 +9,14 @@
 # user-specific file first, then the system-wide one, constituting a chiasmus
 # with the zlogin files.
 
+# Set ZDOTDIR if you want to re-home Zsh.
+export XDG_CONFIG_HOME=~/.config
+export XDG_CACHE_HOME=~/.cache
+export XDG_DATA_HOME=~/.local/share
+export XDG_STATE_HOME=~/.local/state
+export XDG_CONFIG_HOME=${XDG_CONFIG_HOME:-$HOME/.config}
+export ZDOTDIR=${ZDOTDIR:-$XDG_CONFIG_HOME/zsh}
+
 # https://www.zsh.org/mla/users/2021/msg00879.html
 skip_global_compinit=1
 

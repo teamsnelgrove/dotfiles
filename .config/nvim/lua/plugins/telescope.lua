@@ -64,6 +64,8 @@ return {
             vim.keymap.set('n', '<leader>bb', builtin.buffers, {})
             vim.keymap.set('n', '<leader>ss', builtin.current_buffer_fuzzy_find, {})
 
+            vim.keymap.set('n', '<leader>gb', builtin.git_branches, {})
+
             vim.keymap.set(
                 "n",
                 "<space>fh",

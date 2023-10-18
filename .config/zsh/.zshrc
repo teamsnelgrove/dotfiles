@@ -10,16 +10,40 @@
 # user-specific file first, then the system-wide one, constituting a chiasmus
 # with the zlogin files.
 
-test -r ~/.shell-aliases && source ~/.shell-aliases
-test -r ~/.shell-env && source ~/.shell-env
-test -r ~/.shell-env.local && source ~/.shell-env.local
+# init profiling
+[[ -z "$ZPROFRC" ]] || zmodload zsh/zprof
+alias zprofrc="ZPROFRC=1 zsh"
 
-# Required by 1Password line below.
-# Normally this would have been called by a zsh plugin manager
-autoload -Uz compinit
-compinit
+# Zsh options.
+setopt extended_glob
+
+# Autoload functions you might want to use with antidote.
+ZFUNCDIR=${ZFUNCDIR:-$ZDOTDIR/functions}
+fpath=($ZFUNCDIR $fpath)
+autoload -Uz $fpath[1]/*(.:t)
+
+# Source zstyles you might use with antidote.
+[[ -e ${ZDOTDIR:-~}/.zstyles ]] && source ${ZDOTDIR:-~}/.zstyles
+
+# Clone antidote if necessary.
+[[ -d ${ZDOTDIR:-~}/.antidote ]] ||
+  git clone https://github.com/mattmc3/antidote ${ZDOTDIR:-~}/.antidote
+
+# Create an amazing Zsh config using antidote plugins.
+source ${ZDOTDIR:-~}/.antidote/antidote.zsh
+antidote load
 
 # Load 1Password completions
 eval "$(op completion zsh)"; compdef _op op
 eval "$(starship init zsh)"
 eval "$(direnv hook zsh)"
+
+
+# done profiling
+[[ -z "$ZPROFRC" ]] || zprof
+
+# cleanup
+unset ZPROFRC zplugins
+true
+
+# vim: ft=zsh sw=2 ts=2 et

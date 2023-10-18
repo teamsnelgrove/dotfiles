@@ -34,6 +34,7 @@
         "/Users/psnelgrove/.local/share/nvim/lazy/telescope-fzf-native.nvim/lua",
         "/Users/psnelgrove/.local/share/nvim/lazy/aerial.nvim/lua",
         "/Users/psnelgrove/dotfiles/nvim/.config/nvim/lua",
-        "${3rd}/luv/library"
+        "${3rd}/luv/library",
+        "${3rd}/luassert/library"
     ]
 }

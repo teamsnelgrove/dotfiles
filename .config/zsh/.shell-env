@@ -1,19 +1,15 @@
 # vim: set ft=sh sw=2 et :
 export PYTHONSTARTUP="$HOME/python_repl_startup.py"
 
-# Preferred editor for local and remote sessions
-if [[ -n $SSH_CONNECTION ]]; then
-  export EDITOR='vim'
-else
-  export EDITOR='nvim'
-fi
-
-autoload edit-command-line; zle -N edit-command-line
-bindkey -M vicmd '^e' edit-command-line
+export EDITOR='nvim'
+ZVM_VI_INSERT_ESCAPE_BINDKEY=jk
+# autoload edit-command-line; zle -N edit-command-line
+# bindkey -M viins '^e' edit-command-line
+# bindkey -M vicmd '^e' edit-command-line
 
 # FZF configuration
 
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+[ -f "$ZDOTDIR/.fzf.zsh" ] && source "$ZDOTDIR/.fzf.zsh"
 # Use fd (https://github.com/sharkdp/fd) instead of the default find
 # command for listing path candidates.
 # - The first argument to the function ($1) is the base path to start traversal
@@ -33,7 +29,20 @@ export FZF_DEFAULT_COMMAND='fd --type f --exclude .git'
 # To apply the command to CTRL-T as well
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 
-export FZF_DEFAULT_OPTS='--bind ctrl-d:preview-page-down,ctrl-u:preview-page-up'
+export FZF_DEFAULT_OPTS='--layout=reverse --inline-info --bind ctrl-d:preview-page-down,ctrl-u:preview-page-up'
 
 # Using bat as previewer
 export FZF_CTRL_T_OPTS="--preview-window 'right:60%' --height 100% --preview 'bat --color=always --style=header,grid --line-range :600 {}'"
+
+
+# Print tree structure in the preview window
+export FZF_ALT_C_OPTS="--preview 'tree -C {}'"
+
+# CTRL-/ to toggle small preview window to see the full command
+# CTRL-Y to copy the command into clipboard using pbcopy
+export FZF_CTRL_R_OPTS="
+  --preview 'echo {}' --preview-window up:3:hidden:wrap
+  --bind 'ctrl-/:toggle-preview'
+  --bind 'ctrl-y:execute-silent(echo -n {2..} | pbcopy)+abort'
+  --color header:italic
+  --header 'Press CTRL-Y to copy command into clipboard'"
