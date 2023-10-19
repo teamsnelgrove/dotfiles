@@ -3,7 +3,10 @@ return {
         "tpope/vim-fugitive",
         config = function()
             vim.keymap.set("n", "<leader>gs", "<cmd>Git<CR>")
-        end
+        end,
+        dependencies = {
+            "tpope/vim-rhubarb",
+        }
     },
     {
         "lewis6991/gitsigns.nvim",

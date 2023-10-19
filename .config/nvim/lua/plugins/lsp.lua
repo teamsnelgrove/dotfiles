@@ -118,7 +118,9 @@ return {
             })
 
             -- IMPORTANT: make sure to setup neodev BEFORE lspconfig
-            require("neodev").setup({})
+            require("neodev").setup({
+                library = { plugins = { "nvim-dap-ui" }, types = true },
+            })
 
             local root_pattern = require('lspconfig.util').root_pattern
 
