@@ -26,7 +26,7 @@ return {
 
             lsp.ensure_installed({
                 'rust_analyzer',
-                'pylsp',
+                'pyright',
             })
 
             -- Fix Undefined global 'vim'
@@ -122,8 +122,6 @@ return {
                 library = { plugins = { "nvim-dap-ui" }, types = true },
             })
 
-            local root_pattern = require('lspconfig.util').root_pattern
-
             require('lspconfig').lua_ls.setup {
                 settings = {
                     Lua = {
@@ -134,27 +132,26 @@ return {
                 }
             }
 
-            -- vim.list_extend(vim.lsp.override, { "pyright", "pylsp" })
-            require('lspconfig').pylsp.setup {
-                root_dir = root_pattern('pyproject.toml'),
+            local pyright_opts = {
+                single_file_support = true,
                 settings = {
-                    pylsp = {
-                        plugins = {
-                            black = { enabled = false },
-                            ruff = { enabled = false },
-                            pycodestyle = { enabled = false },
-                            flake8 = { enabled = false },
-                            pyflakes = { enabled = false },
-                            mccabe = { enabled = false },
-                            isort = { enabled = false },
-                            mypy = { enabled = false },
+                    pyright = {
+                        disableLanguageServices = false,
+                        disableOrganizeImports = true
+                    },
+                    python = {
+                        analysis = {
+                            autoImportCompletions = true,
+                            autoSearchPaths = true,
+                            diagnosticMode = "openFilesOnly", -- openFilesOnly, workspace
+                            typeCheckingMode = "basic",       -- off, basic, strict
+                            useLibraryCodeForTypes = true
                         }
                     }
                 },
-                flags = {
-                    debounce_text_changes = 200,
-                },
             }
+
+            require('lspconfig').pyright.setup(pyright_opts)
 
             require("lspconfig").ruff_lsp.setup({
                 -- organize imports disabled, since we are already using `isort` for that

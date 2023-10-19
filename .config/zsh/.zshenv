@@ -45,6 +45,7 @@ export PYENV_ROOT="$HOME/.pyenv"
 path=(
   $PYENV_ROOT/bin
   $MAVEN_HOME
+  $HOME/.cargo/bin
   $BREW_PREFIX/{bin,sbin}
   /usr/local/opt/mysql@5.7/bin
   /usr/local/opt/protobuf@3/bin
