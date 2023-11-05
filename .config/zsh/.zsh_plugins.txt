@@ -1,0 +1,53 @@
+#!/bin/zsh
+#
+# .zsh_plugins.txt - antidote plugins file
+#
+### Overview
+#
+# The `.zsh_plugins.txt` file is used by antidote to configure Zsh bundles. Bundles are
+# just a fancy way of referring to Zsh utilities, frameworks, prompts, or plugins.
+# `.zsh_plugins.txt` is used by antidote to generate a static `.zsh_plugins.zsh` file,
+# which can then be sourced in your `.zshrc`. You can use this file as a starting point
+# for your own config. Strip out instructional comments (ie: lines beginning with a '#')
+# and any plugins you don't need, then add what you like and make it yours!
+#
+# NOTE: Order matters in this file! Some bundles need to be last, and others are
+# prerequisites. Read the documentation for the plugins you use to ensure proper
+# configuration.
+#
+###
+
+
+### Regular Plugins
+#
+# Plugins are the simplest kind of bundles. You can point to a full git URL, or if you
+# assume GitHub.com, then you can use the user/repo shorthand.
+#
+###
+# jeffreytse/zsh-vi-mode
+
+
+### Local Plugins
+#
+# Plugins don't have to come from GitHub. You can also use local files or directories to
+# host your own custom plugins.
+#
+###
+#$ZDOTDIR/.fzf.zsh
+$ZDOTDIR/.shell-aliases
+$ZDOTDIR/.shell-env
+$ZDOTDIR/.shell-env.local
+
+### Utilities
+#
+# Utilities aren't traditional Zsh plugins - they aren't sourced Zsh scripts. Instead
+# they provide commands that can be executed from your terminal session. One good
+# example is zsh-bench, which is a utility that benchmarks your Zsh config. Utility
+# bundles can often be made available simply with the `kind:path` annotation.
+#
+###
+romkatv/zsh-bench kind:path
+
+belak/zsh-utils path:completion
+
+# vim: set ft=sh sw=2 et :

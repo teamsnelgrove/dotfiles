@@ -1,0 +1,5 @@
+#!/bin/zsh
+# What is the weather?
+curl "http://wttr.in/$1"
+
+# vim: set ft=sh sw=2 et :

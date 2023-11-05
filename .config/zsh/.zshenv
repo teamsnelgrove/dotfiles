@@ -44,7 +44,7 @@ export PYENV_ROOT="$HOME/.pyenv"
 # https://gist.github.com/Linerre/f11ad4a6a934dcf01ee8415c9457e7b2
 path=(
   $PYENV_ROOT/bin
-  $MAVEN_HOME
+  $MAVEN_HOME/bin
   $HOME/.cargo/bin
   $BREW_PREFIX/{bin,sbin}
   /usr/local/opt/mysql@5.7/bin

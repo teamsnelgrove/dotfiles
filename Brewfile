@@ -4,7 +4,7 @@ tap "koekeishiya/formulae"
 tap "homebrew/services"
 
 brew "btop"
-brew "stow"
+brew "pueue"
 # Language shims
 brew "asdf"
 # Build toobtopling

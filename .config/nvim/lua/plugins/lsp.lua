@@ -26,7 +26,6 @@ return {
 
             lsp.ensure_installed({
                 'rust_analyzer',
-                'pyright',
             })
 
             -- Fix Undefined global 'vim'
@@ -132,26 +131,47 @@ return {
                 }
             }
 
-            local pyright_opts = {
-                single_file_support = true,
+            -- local pyright_opts = {
+            --     single_file_support = true,
+            --     settings = {
+            --         pyright = {
+            --             disableLanguageServices = false,
+            --             disableOrganizeImports = true
+            --         },
+            --         python = {
+            --             analysis = {
+            --                 autoImportCompletions = true,
+            --                 autoSearchPaths = true,
+            --                 diagnosticMode = "openFilesOnly", -- openFilesOnly, workspace
+            --                 typeCheckingMode = "basic",       -- off, basic, strict
+            --                 useLibraryCodeForTypes = true
+            --             }
+            --         }
+            --     },
+            -- }
+            --
+            -- require('lspconfig').pyright.setup(pyright_opts)
+            require('lspconfig').jedi_language_server.setup({
                 settings = {
-                    pyright = {
-                        disableLanguageServices = false,
-                        disableOrganizeImports = true
-                    },
-                    python = {
-                        analysis = {
-                            autoImportCompletions = true,
-                            autoSearchPaths = true,
-                            diagnosticMode = "openFilesOnly", -- openFilesOnly, workspace
-                            typeCheckingMode = "basic",       -- off, basic, strict
-                            useLibraryCodeForTypes = true
+                    jedi_language_server = {
+                        workspace = {
+                            symbols = {
+                                ignoreFolders = {
+                                    ".nox",
+                                    ".tox",
+                                    ".venv",
+                                    "__pycache__",
+                                    "venv",
+                                    ".direnv",
+                                    "libcloud",
+                                    "e2e_test",
+                                    "tests",
+                                }
+                            }
                         }
                     }
-                },
-            }
-
-            require('lspconfig').pyright.setup(pyright_opts)
+                }
+            })
 
             require("lspconfig").ruff_lsp.setup({
                 -- organize imports disabled, since we are already using `isort` for that
