@@ -15,6 +15,8 @@ brew "moreutils"
 # Crypto
 brew "openssl"
 # Editor
+brew "atuin"
+brew "git-delta"
 brew "bat"
 brew "watchexec"
 brew "starship"

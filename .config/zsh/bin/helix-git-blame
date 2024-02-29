@@ -1,0 +1,27 @@
+#!/bin/bash
+
+function helix-git-blame {
+
+  HELIX_PANE_ID=$(wezterm cli get-pane-direction Up)
+  FILE_LINE=$(wezterm cli get-text --pane-id $HELIX_PANE_ID)
+  RES=$(echo $FILE_LINE | rg -e "(?:NOR|INS|SEL)\s+(\S*)\s[^│]* (\d+):*.*" -o --replace '$1 $2')
+  FILE=$(echo $RES | awk '{ print $1}')
+  LINE=$(echo $RES | awk '{ print $2}')
+
+  SHA=$(git blame -lts -L $LINE,+1 $FILE | awk '{ print $1 }')
+# Grab the first PR from the list
+# TODO: make this a fzf picker
+  PR_NUMBER=$(gh pr list --search $SHA --state merged --json number --jq '.[0].number')
+  gh pr view $PR_NUMBER --web
+
+  # git blame -L $LINE,+100 $FILE --color-by-age --color-lines |
+  # fzf --ansi \
+  #   --border \
+  #   --delimiter ':' \
+  #   --height '100%' \
+  #   --multi \
+  #   --print-query --exit-0 \
+  #   --scrollbar '▍'
+
+}
+# vim: set ft=sh sw=2 et : 

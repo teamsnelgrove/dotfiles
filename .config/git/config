@@ -1,0 +1,113 @@
+[include]
+	# Intended to configure the user, which will differ, e.g., between work and personal machines. Contents should at least be
+	# [user]
+	#	name = <name for context>
+	#	email = <email for context>
+	path = ~/.gitconfig_local
+[alias]
+	st = status
+	c = commit -v
+	a = add
+	ap = add -p
+	co = checkout
+	cob = checkout -b
+	amend = commit -v --amend
+
+	b = branch
+	bd = branch -d
+	bD = branch -D
+
+	# Common typos.
+	pul = pull
+
+	f = fetch
+	fa = fetch --all
+
+	rbi = rebase -i
+
+	d = diff
+	dc = diff --cached
+
+	l = log --graph --decorate --oneline --abbrev-commit --all
+	h = log --graph --decorate --oneline --abbrev-commit
+	search-logs = log -p -S
+	grep-logs = log -p -G
+
+	rev = !sh -c 'git rev-list --reverse HEAD | nl | awk \"{ if(\\$1 == "$0") { print \\$2 }}\"'
+	unpushed = log --all --not --remotes --tags --pretty=format:'%h %an %s'
+	root = rev-parse --show-toplevel
+	copr = "!gh pr checkout $0"
+
+	# TODO: Implement checkout-remote https://stackoverflow.com/a/54413488
+	checkoutr = checkout
+	fpush = push
+[rerere]
+	enabled = true
+	autoUpdate = true
+[mergetool]
+	keepBackup = true
+[color]
+	diff = auto
+	status = auto
+	branch = auto
+	ui = true
+[difftool]
+	prompt = false
+[push]
+	# See `git help config` (search for push.default)
+	# for more information on different options of the below setting.
+	#
+	# Setting to git 2.0 default to surpress warning message
+	default = simple
+[init]
+	defaultBranch = main
+[credential]
+	helper = osxkeychain
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+[branch]
+	sort = -committerdate
+
+[column]
+	ui = auto
+
+[core]
+	pager = delta
+[interactive]
+	diffFilter = delta --color-only
+[delta]
+	# Use n and N to move between diff sections
+	navigate = true
+	side-by-side = true
+	# light = true # for light-mode weirdos
+	features = catppuccin-mocha
+
+[delta "catppuccin-mocha"]
+	blame-palette = "#1e1e2e #181825 #11111b #313244 #45475a"
+	commit-decoration-style = "box ul"
+	dark = true
+	file-decoration-style = "#cdd6f4"
+	file-style = "#cdd6f4"
+	hunk-header-decoration-style = "box ul"
+	hunk-header-file-style = "bold"
+	hunk-header-line-number-style = "bold #a6adc8"
+	hunk-header-style = "file line-number syntax"
+	line-numbers = true
+	line-numbers-left-style = "#6c7086"
+	line-numbers-minus-style = "bold #f38ba8"
+	line-numbers-plus-style = "bold #a6e3a1"
+	line-numbers-right-style = "#6c7086"
+	line-numbers-zero-style = "#6c7086"
+	# 25% red 75% base
+	minus-emph-style = "bold syntax #53394c"
+	# 10% red 90% base
+	minus-style = "syntax #35293b"
+	# 25% green 75% base
+	plus-emph-style = "bold syntax #40504b"
+	# 10% green 90% base
+	plus-style = "syntax #2c333a"
+	# Should match the name of the bat theme
+	syntax-theme = "Catppuccin-mocha"

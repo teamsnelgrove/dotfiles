@@ -36,14 +36,15 @@ antidote load
 # Load 1Password completions
 eval "$(op completion zsh)"; compdef _op op
 eval "$(starship init zsh)"
-eval "$(direnv hook zsh)"
-
+# eval "$(direnv hook zsh)"
 
 # done profiling
 [[ -z "$ZPROFRC" ]] || zprof
 
 # cleanup
-unset ZPROFRC zplugins
-true
+unset ZPROFRC zplugins true
 
 # vim: ft=zsh sw=2 ts=2 et
+source "${XDG_CONFIG_HOME:-$HOME/.config}/asdf-direnv/zshrc"
+
+eval "$(atuin init zsh)"

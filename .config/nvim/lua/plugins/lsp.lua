@@ -131,47 +131,48 @@ return {
                 }
             }
 
-            -- local pyright_opts = {
-            --     single_file_support = true,
-            --     settings = {
-            --         pyright = {
-            --             disableLanguageServices = false,
-            --             disableOrganizeImports = true
-            --         },
-            --         python = {
-            --             analysis = {
-            --                 autoImportCompletions = true,
-            --                 autoSearchPaths = true,
-            --                 diagnosticMode = "openFilesOnly", -- openFilesOnly, workspace
-            --                 typeCheckingMode = "basic",       -- off, basic, strict
-            --                 useLibraryCodeForTypes = true
-            --             }
-            --         }
-            --     },
-            -- }
-            --
-            -- require('lspconfig').pyright.setup(pyright_opts)
-            require('lspconfig').jedi_language_server.setup({
+            local pyright_opts = {
+                single_file_support = true,
                 settings = {
-                    jedi_language_server = {
-                        workspace = {
-                            symbols = {
-                                ignoreFolders = {
-                                    ".nox",
-                                    ".tox",
-                                    ".venv",
-                                    "__pycache__",
-                                    "venv",
-                                    ".direnv",
-                                    "libcloud",
-                                    "e2e_test",
-                                    "tests",
-                                }
-                            }
+                    pyright = {
+                        disableLanguageServices = false,
+                        disableOrganizeImports = true
+                    },
+                    python = {
+                        analysis = {
+                            autoImportCompletions = true,
+                            autoSearchPaths = true,
+                            diagnosticMode = "openFilesOnly", -- openFilesOnly, workspace
+                            typeCheckingMode = "basic",       -- off, basic, strict
+                            useLibraryCodeForTypes = true,
+                            -- reportOptionalMemberAccess = false,
                         }
                     }
-                }
-            })
+                },
+            }
+
+            require('lspconfig').pyright.setup(pyright_opts)
+            -- require('lspconfig').jedi_language_server.setup({
+            --     settings = {
+            --         jedi_language_server = {
+            --             workspace = {
+            --                 symbols = {
+            --                     ignoreFolders = {
+            --                         ".nox",
+            --                         ".tox",
+            --                         ".venv",
+            --                         "__pycache__",
+            --                         "venv",
+            --                         ".direnv",
+            --                         "libcloud",
+            --                         "e2e_test",
+            --                         "tests",
+            --                     }
+            --                 }
+            --             }
+            --         }
+            --     }
+            -- })
 
             require("lspconfig").ruff_lsp.setup({
                 -- organize imports disabled, since we are already using `isort` for that

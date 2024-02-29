@@ -1,7 +1,7 @@
 # vim: set ft=sh sw=2 et :
 export PYTHONSTARTUP="$HOME/python_repl_startup.py"
 
-export EDITOR='nvim'
+export EDITOR='hx'
 ZVM_VI_INSERT_ESCAPE_BINDKEY=jk
 # autoload edit-command-line; zle -N edit-command-line
 # bindkey -M viins '^e' edit-command-line
@@ -40,9 +40,9 @@ export FZF_ALT_C_OPTS="--preview 'tree -C {}'"
 
 # CTRL-/ to toggle small preview window to see the full command
 # CTRL-Y to copy the command into clipboard using pbcopy
-export FZF_CTRL_R_OPTS="
-  --preview 'echo {}' --preview-window up:3:hidden:wrap
-  --bind 'ctrl-/:toggle-preview'
-  --bind 'ctrl-y:execute-silent(echo -n {2..} | pbcopy)+abort'
-  --color header:italic
-  --header 'Press CTRL-Y to copy command into clipboard'"
+# export FZF_CTRL_R_OPTS="
+#   --preview 'echo {}' --preview-window up:3:hidden:wrap
+#   --bind 'ctrl-/:toggle-preview'
+#   --bind 'ctrl-y:execute-silent(echo -n {2..} | pbcopy)+abort'
+#   --color header:italic
+#   --header 'Press CTRL-Y to copy command into clipboard'"

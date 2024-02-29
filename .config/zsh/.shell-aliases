@@ -2,6 +2,8 @@
 
 alias dotfiles='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
 alias l='ls -alh --color=always'
+alias g='git'
+alias pu=pueue
 alias cat="bat --theme=ansi"
 alias ..='cd ..'
 alias ...='cd ../..'
