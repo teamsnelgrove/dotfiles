@@ -4,6 +4,10 @@ theme = "catppuccin_mocha"
 line-number = "relative"
 bufferline = "multiple"
 
+[editor.statusline]
+# Disable spinner by omitting from list
+left = ["mode", "file-name", "read-only-indicator", "file-modification-indicator"]
+
 [editor.cursor-shape]
 insert = "bar"
 normal = "block"
@@ -27,9 +31,20 @@ render = true
 character = "╎" # Some characters that work well: "▏", "┆", "┊", "⸽"
 skip-levels = 1
 
-# [editor.lsp]
-# display-inlay-hints = true
+[editor.lsp]
+display-inlay-hints = true
 
 [keys.normal]
 space.o = "file_picker_in_current_buffer_directory"
+
+[keys.normal.space.space]
+b = ":sh helix-wezterm.sh blame"
+c = ":sh helix-wezterm.sh check"
+e = ":sh helix-wezterm.sh explorer"
+f = ":sh helix-wezterm.sh fzf"
+g = ":sh helix-wezterm.sh lazygit"
+h = ":sh helix-wezterm.sh open"
+r = ":sh helix-wezterm.sh run"
+t = ":sh helix-wezterm.sh test"
+o = """:sh wezterm cli split-pane sh -c "yazi --chooser-file=/dev/stdout | while read -r; do wezterm cli send-text --pane-id ${WEZTERM_PANE} --no-paste \\":o \\${REPLY}\\"; done" > /dev/null"""
 

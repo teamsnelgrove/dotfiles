@@ -6,19 +6,82 @@ alias dew="cd ~/code/divvy-dev/services/cloud-collector"
 alias dts="cd ~/code/divvy-dev/Divvy/src/ts"
 
 # Helper function for invoking DivvyCloud process commands
-function dv() {
-    ARGS="${@}" make run-dv
+# function dv() {
+#     ARGS="${@}" make run-dv
+# }
+
+alias dva="divvycloud --skip-scheduler-check  webserver --cors-mode"
+alias dvw="divvycloud --skip-scheduler-check  worker"
+alias dvs="divvycloud scheduler --skip-startup-jobs"
+alias dvud="divvycloud upgrade-database"
+
+function setup-divvy-database {
+    mysql -e 'CREATE DATABASE divvy;'
+    mysql -e 'CREATE DATABASE divvy_iac;'
+    mysql -e 'CREATE DATABASE divvykeys;'
+    # Run migrations
+    divvycloud upgrade-database
+    # Insert the license and first user
+    # mysql divvy < ~/code/divvy-dev/db/insert_license.sql
+    # Make sure the license is refreshed
+    # divvycloud mock-job LicenseHarvester
+
 }
 
-alias dva="dv --skip-scheduler-check  webserver --cors-mode"
-alias dvw="dv --skip-scheduler-check  worker"
-alias dvs="dv scheduler --skip-startup-jobs"
-alias dvud="dv upgrade-database"
+function register_ics {
+    export ICS_NAME=$(op item get Admin --fields=name)
+    export ICS_EMAIL=$(op item get Admin --fields=email)
+    export ICS_COMPANY=$(op item get Admin --fields=company)
+    export ICS_BASE_URL=$(op item get Admin --fields=website)
+    export ICS_USERNAME=$(op item get Admin --fields=username)
+    export ICS_PASSWORD=$(op item get Admin --fields=password)
+    PAYLOAD="$(jq -nc '{name: env.ICS_NAME, email: env.ICS_EMAIL, username: env.ICS_USERNAME, password: env.ICS_PASSWORD, company_name: env.ICS_COMPANY, base_url: env.ICS_BASE_URL}')"
+    curl -s 'http://localhost:8001/v2/prototype/user/initial_user/create' \
+    -H 'Content-Type: application/json' \
+    -d "$PAYLOAD" \
+    | jq -r '.session_id'
+}
+
+function generate-api-key {
+    redis-cli FLUSHALL
+    export ICS_USERNAME="$(op item get Admin --fields=username)"
+    export ICS_PASSWORD="$(op item get Admin --fields=password)"
+    export PAYLOAD="$(jq -nc '{username: env.ICS_USERNAME, password: env.ICS_PASSWORD}')"
+    SESSION_ID=$(curl -s 'http://localhost:8001/v2/public/user/login' -H 'Content-Type: application/json' -d "$PAYLOAD" | jq -r '.session_id')
+    API_KEY=$(
+        curl -s 'http://localhost:8001/v2/public/apikey/create' \
+            -H 'Content-Type: application/json' \
+            -H "X-auth-token: $SESSION_ID" \
+            -d '{"name":"","deactivate_old":true,"user_id":1,"key_length":32}' \
+            | jq -r .)
+
+    op item edit Admin "api_key[password]=$API_KEY"
+}
+
+function teardown-divvy-database {
+    mysql -e 'DROP DATABASE divvy;'
+    mysql -e 'DROP DATABASE divvy_iac;'
+    mysql -e 'DROP DATABASE divvykeys;'
+    # mysql -e "DROP USER 'divvy'"
+    redis-cli FLUSHALL
+}
+
+function curldv(){
+    print -z -- curl -s 'http://localhost:8001/' -H 'Content-Type: application/json' -H "X-auth-token: $(op item get Admin --fields=api_key)" -d 
+}
 
 function clear-queues() {
-    redis-cli del divvy:scheduler:queue:p0
-    redis-cli del divvy:scheduler:queue:p1
-    redis-cli del divvy:scheduler:queue:p2
-    redis-cli del divvy:scheduler:queue:p3
+    redis-cli del divvy:scheduler:queue:p0 divvy:scheduler:queue:p1 divvy:scheduler:queue:p2 divvy:scheduler:queue:p3
 }
 
+function mysqlc() {
+    mysql -h 127.0.0.1 -P 3308 --user=collector --password=collector collector
+}
+
+function pr() {
+    tmp="$(mktemp -t "pr-template.XXXXXX")"
+    jira_eng_ticket=$(git rev-parse --abbrev-ref HEAD | rg '(ENG-\d+)' -or '$1')
+    rg --passthrough 'ENG_TICKET' -r $jira_eng_ticket ~/.config/gh/pr_template.md > $tmp $2> /dev/null
+    gh pr create --fill --template $tmp
+    rm tmp
+}

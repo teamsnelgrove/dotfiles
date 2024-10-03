@@ -38,21 +38,21 @@ manpath=(
 )
 
 export MAVEN_HOME="$HOME/apache-maven-3.8.6"
-export PYENV_ROOT="$HOME/.pyenv"
 
 # Best breakdown of how pathing works in zsh
 # https://gist.github.com/Linerre/f11ad4a6a934dcf01ee8415c9457e7b2
 path=(
-  # $PYENV_ROOT/bin
   $MAVEN_HOME/bin
   $HOME/.cargo/bin
   $BREW_PREFIX/{bin,sbin}
-  # /usr/local/opt/mysql@5.7/bin
-  /usr/local/opt/protobuf@3/bin
+  /usr/local/opt/mysql@8.0/bin
+  # /usr/local/Cellar/openssl@3/3.3.2/bin
+  # /usr/local/opt/protobuf@3/bin
   ${GOPATH//://bin:}/bin
   /usr/local/{bin,sbin}
   /usr/{bin,sbin}
   $HOME/.config/zsh/bin
+  $HOME/.local/bin
   /{bin,sbin}
   $path
 )

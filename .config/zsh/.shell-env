@@ -46,3 +46,12 @@ export FZF_ALT_C_OPTS="--preview 'tree -C {}'"
 #   --bind 'ctrl-y:execute-silent(echo -n {2..} | pbcopy)+abort'
 #   --color header:italic
 #   --header 'Press CTRL-Y to copy command into clipboard'"
+
+function y() {
+	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")"
+	yazi "$@" --cwd-file="$tmp"
+	if cwd="$(cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
+		builtin cd -- "$cwd"
+	fi
+	rm -f -- "$tmp"
+}

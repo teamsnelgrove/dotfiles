@@ -1,29 +1,33 @@
 [[language]]
 name = "python"
-language-servers = [ "pyright", "ruff-lsp" ]
+language-servers = [ "pyright", "ruff" ]
 auto-format = true
-
-[language.debugger]
-name = "debugpy"
-transport = "stdio"
-command = "python"
-args = ["-m",  "debugpy.adapter"]
-
-[[language.debugger.templates]]
-name = "source"
-request = "launch"
-completion = [ { name = "entrypoint", completion = "filename", default = "." } ]
-args = { mode = "debug", program = "{0}" }
+formatter = { command = "sh", args = ["-c", "ruff check --quiet --select I --fix - | ruff format -"]}
 
 [language-server.pyright.config.python.analysis]
 typeCheckingMode = "basic"
 
-[language-server.ruff-lsp]
-command = "ruff-lsp"
+[language-server.ruff]
+command = "ruff"
+args = ["server"]
+# settings = {
+#   lint = {
+#     select = ["FBT"]
+#   }
+# }
 
-[language-server.ruff-lsp.config.settings]
-args = ["--ignore", "E501"]
+# [language.debugger]
+# name = "debugpy"
+# transport = "stdio"
+# command = "python"
+# args = ["-m",  "debugpy.adapter"]
 
-[language.formatter]
-command = "black"
-args = ["-"]
+# [[language.debugger.templates]]
+# name = "source"
+# request = "launch"
+# completion = [ { name = "entrypoint", completion = "filename", default = "." } ]
+# args = { mode = "debug", program = "{0}" }
+
+[[language]]
+name = "markdown"
+soft-wrap.enable = true
