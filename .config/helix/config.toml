@@ -32,4 +32,4 @@ skip-levels = 1
 
 [keys.normal]
 space.o = "file_picker_in_current_buffer_directory"
-
+space.n = """:sh wezterm cli split-pane sh -c "yazi --chooser-file=/dev/stdout | while read -r; do wezterm cli send-text --pane-id ${WEZTERM_PANE} --no-paste \\":o \\${REPLY}\\"; done" > /dev/null"""

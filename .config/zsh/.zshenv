@@ -49,6 +49,7 @@ path=(
   $BREW_PREFIX/{bin,sbin}
   # /usr/local/opt/mysql@5.7/bin
   /usr/local/opt/protobuf@3/bin
+  /usr/local/opt/llvm/bin
   ${GOPATH//://bin:}/bin
   /usr/local/{bin,sbin}
   /usr/{bin,sbin}
@@ -57,27 +58,11 @@ path=(
   $path
 )
 
-function helix-git-blame {
-
-  HELIX_PANE_ID=$(wezterm cli get-pane-direction Up)
-  FILE_LINE=$(wezterm cli get-text --pane-id $HELIX_PANE_ID)
-  RES=$(echo $FILE_LINE | rg -e "(?:NOR|INS|SEL)\s+(\S*)\s[^│]* (\d+):*.*" -o --replace '$1 $2')
-  FILE=$(echo $RES | awk '{ print $1}')
-  LINE=$(echo $RES | awk '{ print $2}')
-
-  SHA=$(git blame -lts -L $LINE,+1 $FILE | awk '{ print $1 }')
-# Grab the first PR from the list
-# TODO: make this a fzf picker
-  PR_NUMBER=$(gh pr list --search $SHA --state merged --json number --jq '.[0].number')
-  gh pr view $PR_NUMBER --web
-}
-
-
 # PACMAN
-export DYLD_LIBRARY_PATH=/usr/local/bin
+# export DYLD_LIBRARY_PATH=/usr/local/bin
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
-export SDKMAN_DIR="$HOME/.sdkman"
-[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
+# export SDKMAN_DIR="$HOME/.sdkman"
+# [[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
 
 # Shim asdf
-. "$HOME/.asdf/asdf.sh"
+# . "$HOME/.asdf/asdf.sh"

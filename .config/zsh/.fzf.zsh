@@ -1,8 +1,8 @@
 # Setup fzf
 # ---------
-if [[ ! "$PATH" == */usr/local/opt/fzf/bin* ]]; then
-  PATH="${PATH:+${PATH}:}/usr/local/opt/fzf/bin"
-fi
+# if [[ ! "$PATH" == */usr/local/opt/fzf/bin* ]]; then
+#   PATH="${PATH:+${PATH}:}/usr/local/opt/fzf/bin"
+# fi
 
 function search_in_dir {
   DIR=$(fd --type directory |
@@ -24,11 +24,3 @@ function search_in_dir {
       --bind 'enter:become(hx {1}:{2})'
 
 }
-
-# Auto-completion
-# ---------------
-[[ $- == *i* ]] && source "/usr/local/opt/fzf/shell/completion.zsh" 2> /dev/null
-
-# Key bindings
-# ------------
-source "/usr/local/opt/fzf/shell/key-bindings.zsh"

@@ -1,1 +1,1 @@
-/Users/psnelgrove/.config/zsh/.zshenv
+.config/zsh/.zshenv

@@ -45,6 +45,6 @@ eval "$(starship init zsh)"
 unset ZPROFRC zplugins true
 
 # vim: ft=zsh sw=2 ts=2 et
-source "${XDG_CONFIG_HOME:-$HOME/.config}/asdf-direnv/zshrc"
+# source "${XDG_CONFIG_HOME:-$HOME/.config}/asdf-direnv/zshrc"
 
 eval "$(atuin init zsh)"
